@@ -1,0 +1,34 @@
+<% content_for :title, "Add item" %>
+
+<section class="panel narrow">
+  <h1>Add item</h1>
+  <p class="muted">Session login required. Submits a normal HTML form with CSRF protection.</p>
+
+  <%= form_with url: shop_new_item_path, method: :post, local: true do %>
+    <div class="mb-3">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" value="<%= params[:name] %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="description">Description</label>
+      <textarea id="description" name="description"><%= params[:description] %></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="price">Price</label>
+      <input type="number" step="0.01" id="price" name="price" value="<%= params[:price] %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="category_id">Category</label>
+      <select id="category_id" name="category_id">
+        <option value="">None</option>
+        <% @categories.each do |category| %>
+          <option value="<%= category.id %>" <%= "selected" if params[:category_id].to_s == category.id.to_s %>><%= category.name %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="actions">
+      <button type="submit" class="button">Save item</button>
+      <a class="button secondary" href="<%= shop_items_path %>">Cancel</a>
+    </div>
+  <% end %>
+</section>

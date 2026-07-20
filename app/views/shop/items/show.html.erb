@@ -1,0 +1,12 @@
+<% content_for :title, @item.name %>
+
+<article class="panel">
+  <p class="eyebrow"><a href="<%= shop_items_path %>">← Back to items</a></p>
+  <h1><%= @item.name %></h1>
+  <dl class="detail-list">
+    <div><dt>Price</dt><dd>$<%= @item.price %></dd></div>
+    <div><dt>Category</dt><dd><%= @item.category&.name || "Uncategorized" %></dd></div>
+    <div><dt>Description</dt><dd><%= @item.description.presence || "No description." %></dd></div>
+  </dl>
+  <p class="muted">Same record as <a href="/items/<%= @item.id %>">GET /items/<%= @item.id %></a> (JSON).</p>
+</article>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= content_for?(:title) ? "#{yield(:title)} · rails-101" : "Catalog Shop · rails-101" %></title>
+  <link rel="stylesheet" href="/shop/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="<%= shop_home_path %>">Catalog Shop</a>
+      <nav class="nav">
+        <a href="<%= shop_home_path %>">Home</a>
+        <a href="<%= shop_items_path %>">Items</a>
+        <a href="/items">API</a>
+      </nav>
+      <div class="auth">
+        <% if current_shop_user %>
+          <span class="muted"><%= current_shop_user.email %></span>
+          <%= button_to "Log out", shop_logout_path, method: :post, class: "link-button", form: { style: "display:inline" } %>
+        <% else %>
+          <a href="<%= shop_login_path %>">Log in</a>
+        <% end %>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <% if notice.present? %>
+      <ul class="messages"><li class="message success"><%= notice %></li></ul>
+    <% end %>
+    <% if alert.present? %>
+      <ul class="messages"><li class="message error"><%= alert %></li></ul>
+    <% end %>
+
+    <%= yield %>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="muted">
+        Server-rendered ERB templates — same services as the JSON API.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
